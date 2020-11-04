@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Messages</title>
+    {%block navbar %} {%include 'navbar.html' %} {%endblock navbar %}
+</head>
+
+<body>
+    <h1>Messages!</h1>
+
+    {% for msg in messages %}
+
+    <i>From {{msg.source.username}} to {{msg.target.username}}</i></br>
+    {{msg.content|safe}}
+    </br>
+    </br>
+    {% endfor %}
+
+    <h2>Send a message</h2>
+
+    <form action='' method="POST">
+        {% csrf_token %}
+        To:
+        <select name="to">
+            {% for user in users %}
+            <option value="{{user.username}}">{{user.username}}</option>
+            {% endfor %}
+        </select><br />
+
+        <textarea name="content" cols="40" rows="5"></textarea><br />
+        <input type="submit" value="Send" />
+    </form>
+
+</body>
+
+</html>
